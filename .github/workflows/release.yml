@@ -36,6 +36,8 @@ jobs:
     timeout-minutes: 10
     needs: get-next-version
 
+    if: needs.get-next-version.outputs.hasNextVersion == 'true'
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v7
