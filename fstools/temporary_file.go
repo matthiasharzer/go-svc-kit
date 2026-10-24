@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/matthiasharzer/go-svc-kit/function"
-	"github.com/matthiasharzer/go-svc-kit/util/funcutils"
 )
 
 type temporaryFileOptions struct {
@@ -34,7 +33,9 @@ func TemporaryFile(opts ...function.Option[temporaryFileOptions]) (string, func(
 	if err != nil {
 		return "", nil, err
 	}
-	defer funcutils.LogError(file.Close, "failed to close temporary file")
+	defer func() {
+		_ = file.Close()
+	}()
 
 	cleanup := func() {
 		_ = os.Remove(file.Name())
