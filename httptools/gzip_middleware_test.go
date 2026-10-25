@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/matthiasharzer/go-svc-kit/httptools"
+	"github.com/matthiasharzer/service-kit/httptools"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

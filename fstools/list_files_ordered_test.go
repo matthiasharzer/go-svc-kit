@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/matthiasharzer/go-svc-kit/fstools"
+	"github.com/matthiasharzer/service-kit/fstools"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

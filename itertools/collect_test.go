@@ -5,7 +5,7 @@ import (
 	"iter"
 	"testing"
 
-	"github.com/matthiasharzer/go-svc-kit/itertools"
+	"github.com/matthiasharzer/service-kit/itertools"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

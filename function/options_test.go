@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/matthiasharzer/go-svc-kit/function"
+	"github.com/matthiasharzer/service-kit/function"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"os"
 
-	"github.com/matthiasharzer/go-svc-kit/function"
+	"github.com/matthiasharzer/service-kit/function"
 )
 
 var randomPatternsPrefixes = []string{

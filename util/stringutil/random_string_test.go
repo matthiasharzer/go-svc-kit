@@ -3,7 +3,7 @@ package stringutil_test
 import (
 	"testing"
 
-	"github.com/matthiasharzer/go-svc-kit/util/stringutil"
+	"github.com/matthiasharzer/service-kit/util/stringutil"
 	"github.com/stretchr/testify/assert"
 )
 
