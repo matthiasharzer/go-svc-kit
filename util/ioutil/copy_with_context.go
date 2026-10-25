@@ -19,6 +19,8 @@ func (cr *contextReader) Read(p []byte) (int, error) {
 	return cr.reader.Read(p)
 }
 
+// CopyWithContext works like io.Copy, but interrupts writing if the context.Context is canceled. Returns the number
+// of bytes copied. If the context is canceled before the entire write completed, no error will be returned.
 func CopyWithContext(ctx context.Context, dst io.Writer, src io.Reader) (int64, error) {
 	ctxReader := &contextReader{ctx: ctx, reader: src}
 

@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// GZIPResponseWriter wraps an http.ResponseWriter with a gzip.Writer enabling gzip encoded http responses
 type GZIPResponseWriter struct {
 	http.ResponseWriter
 	writer *gzip.Writer

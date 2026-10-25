@@ -31,6 +31,8 @@ func serveFile(w http.ResponseWriter, r *http.Request, fileSystem http.FileSyste
 	return nil
 }
 
+// HandleStaticSite serves a fs.FS filesystem statically. Directories will not be served. If the request-path ends with
+// and "/", a directory is assumed and a "index.html" will in that directory tried to serve.
 func HandleStaticSite(fileSystem fs.FS) http.HandlerFunc {
 	httpFileSystem := http.FS(fileSystem)
 

@@ -5,25 +5,36 @@ import (
 	"sync"
 )
 
+// UnsubscribeFunc denotes a function used for unsubscribing from a channel.
 type UnsubscribeFunc = func()
 
+// ReadonlyChannel is an observable channel which can only be subscribed to without being able to publish events.
 type ReadonlyChannel[T any] interface {
+	// Subscribe subscribes the observer-function to published events of this channel. Once an event is
+	// published, the observer-function will be called with the published value. To unsubscribe again, run the returned
+	// UnsubscribeFunc.
 	Subscribe(observer func(T)) UnsubscribeFunc
 }
 
+// ReadWriteChannel is an observable channel which can be used for publishing and subscribing.
 type ReadWriteChannel[T any] interface {
 	ReadonlyChannel[T]
+	// Publish publishes a new event and notifies all subscribers.
 	Publish(data T)
+	// Clear force-unsubscribes all subscribers from the channel.
 	Clear()
 }
 
 type channel[T any] struct {
+	// TODO: using a map here does not guarantee execution order which breaks the current test sometimes
 	callbacks map[uint64]func(T)
 	nextID    uint64
 	isAsync   bool
 	mu        *sync.RWMutex
 }
 
+// NewSyncChannel create a new ReadWriteChannel which notifies subscribers sequentially on event publishing. Long
+// executing subscribers will block the execution of the remaining subscribers.
 func NewSyncChannel[T any]() ReadWriteChannel[T] {
 	return &channel[T]{
 		callbacks: make(map[uint64]func(T)),
@@ -32,6 +43,8 @@ func NewSyncChannel[T any]() ReadWriteChannel[T] {
 	}
 }
 
+// NewAsyncChannel creates a new ReadWriteChannel which notifies each subscriber asynchronously. Every subscriber
+// will be notified in a dedicated Go-routine thus preventing long-execution-blocking.
 func NewAsyncChannel[T any]() ReadWriteChannel[T] {
 	return &channel[T]{
 		callbacks: make(map[uint64]func(T)),

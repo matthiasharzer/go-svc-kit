@@ -21,7 +21,7 @@ func TestUnmarshalAny(t *testing.T) {
 		}
 
 		var person Person
-		err := marshalutil.UnmarshalAny(data, &person)
+		err := marshalutil.RemarshalAny(data, &person)
 		require.NoError(t, err)
 
 		assert.Equal(t, "John", person.Name)
@@ -40,7 +40,7 @@ func TestUnmarshalAny(t *testing.T) {
 		}
 
 		var data map[string]any
-		err := marshalutil.UnmarshalAny(person, &data)
+		err := marshalutil.RemarshalAny(person, &data)
 		require.NoError(t, err)
 
 		assert.Equal(t, "Alice", data["name"])
@@ -54,7 +54,7 @@ func TestUnmarshalAny(t *testing.T) {
 		}
 
 		var result map[string]any
-		err := marshalutil.UnmarshalAny(data, &result)
+		err := marshalutil.RemarshalAny(data, &result)
 		require.NoError(t, err)
 
 		assert.Equal(t, "value1", result["key1"])
@@ -73,7 +73,7 @@ func TestUnmarshalAny(t *testing.T) {
 		}
 
 		var result Person
-		err := marshalutil.UnmarshalAny(person, &result)
+		err := marshalutil.RemarshalAny(person, &result)
 		require.NoError(t, err)
 
 		assert.Equal(t, "Bob", result.Name)
@@ -91,7 +91,7 @@ func TestUnmarshalAny(t *testing.T) {
 		}
 
 		var person Person
-		err := marshalutil.UnmarshalAny(data, &person)
+		err := marshalutil.RemarshalAny(data, &person)
 		require.NoError(t, err)
 
 		assert.Equal(t, "Charlie", person.Name)
