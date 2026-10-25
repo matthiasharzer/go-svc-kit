@@ -1,8 +1,10 @@
 package observer
 
 import (
-	"maps"
+	"slices"
 	"sync"
+
+	"golang.org/x/exp/maps"
 )
 
 // UnsubscribeFunc denotes a function used for unsubscribing from a channel.
@@ -74,7 +76,11 @@ func (o *channel[T]) Publish(data T) {
 	maps.Copy(callbacks, o.callbacks)
 	o.mu.RUnlock()
 
-	for _, observer := range callbacks {
+	callbackIDs := maps.Keys(callbacks)
+	slices.Sort(callbackIDs)
+
+	for _, callbackID := range callbackIDs {
+		observer := o.callbacks[callbackID]
 		if isAsync {
 			go observer(data)
 		} else {

@@ -1,6 +1,7 @@
 package observer_test
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -105,16 +106,21 @@ func TestNewAsyncChannel(t *testing.T) {
 	t.Run("runs subscribers asynchronously", func(t *testing.T) {
 		testChannel := observer.NewAsyncChannel[string]()
 
+		mu := sync.Mutex{}
 		receivedAt := map[string]time.Time{}
 
 		testChannel.Subscribe(func(s string) {
+			mu.Lock()
 			receivedAt["subscriber1"] = time.Now()
+			mu.Unlock()
 
 			// this should not block the second channel
 			time.Sleep(100 * time.Millisecond)
 		})
 		testChannel.Subscribe(func(s string) {
+			mu.Lock()
 			receivedAt["subscriber2"] = time.Now()
+			mu.Unlock()
 		})
 		testChannel.Publish("test")
 
