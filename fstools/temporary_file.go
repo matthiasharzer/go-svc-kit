@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/matthiasharzer/go-svc-kit/function"
+	"github.com/matthiasharzer/service-kit/function"
 )
 
 type temporaryFileOptions struct {

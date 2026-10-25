@@ -1,4 +1,4 @@
-module github.com/matthiasharzer/go-svc-kit
+module github.com/matthiasharzer/service-kit
 
 go 1.27.3
 
