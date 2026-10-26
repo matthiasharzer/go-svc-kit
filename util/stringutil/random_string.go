@@ -5,6 +5,7 @@ import (
 	"math/big"
 )
 
+// RandomString creates a random string of alphanumerical symbols with the length given
 func RandomString(length int) string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	charsetLen := big.NewInt(int64(len(charset)))

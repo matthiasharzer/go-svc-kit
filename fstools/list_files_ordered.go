@@ -12,6 +12,8 @@ type fileInfo struct {
 	ModTime time.Time
 }
 
+// ListFilesOrdered returns the name of all files (excluding directories) in the given directory, ordered
+// by their modification time (ascending)
 func ListFilesOrdered(dir string) ([]string, error) {
 	dirEntries, err := os.ReadDir(dir)
 	if err != nil {

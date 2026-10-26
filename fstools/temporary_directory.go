@@ -43,6 +43,8 @@ type temporaryDirectoryOptions struct {
 	Prefix string
 }
 
+// WithPrefix configures the prefix used when creating a temporary directory. This inflicts
+// the name of the folder inside the os's temporary directory.
 func WithPrefix(prefix string) function.Option[temporaryDirectoryOptions] {
 	return func(options *temporaryDirectoryOptions) error {
 		options.Prefix = prefix
@@ -50,6 +52,13 @@ func WithPrefix(prefix string) function.Option[temporaryDirectoryOptions] {
 	}
 }
 
+// TemporaryDirectory creates an ephemeral directory. It returns the name of the directory as well as
+// a cleanup function, which when called removes the temporary directory.
+//
+// The prefix of the created directory name can be modified using the WithPrefix option. If omitted, a random prefix
+// will be used.
+//
+// See also: TemporaryFile
 func TemporaryDirectory(opts ...function.Option[temporaryDirectoryOptions]) (string, func(), error) {
 	options := temporaryDirectoryOptions{
 		Prefix: getRandomPrefix(),

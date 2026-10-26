@@ -4,7 +4,10 @@ go 1.27.3
 
 tool honnef.co/go/tools/cmd/staticcheck
 
-require github.com/stretchr/testify v1.12.1
+require (
+	github.com/stretchr/testify v1.12.1
+	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
+)
 
 require (
 	github.com/BurntSushi/toml v1.4.1-0.20240526193622-a339e1f7089c // indirect
