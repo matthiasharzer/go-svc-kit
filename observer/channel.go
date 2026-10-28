@@ -28,7 +28,6 @@ type ReadWriteChannel[T any] interface {
 }
 
 type channel[T any] struct {
-	// TODO: using a map here does not guarantee execution order which breaks the current test sometimes
 	callbacks map[uint64]func(T)
 	nextID    uint64
 	isAsync   bool
