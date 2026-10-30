@@ -1,18 +1,18 @@
-package fstools_test
+package fsutil_test
 
 import (
 	"os"
 	"testing"
 	"time"
 
-	"github.com/matthiasharzer/service-kit/fstools"
+	fstools2 "github.com/matthiasharzer/service-kit/util/fsutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestListFilesOrdered(t *testing.T) {
 	t.Run("returns files in order by time", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fstools2.TemporaryDirectory()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -33,19 +33,19 @@ func TestListFilesOrdered(t *testing.T) {
 			require.NoError(t, err)
 		}
 
-		orderedFiles, err := fstools.ListFilesOrdered(tmpDir)
+		orderedFiles, err := fstools2.ListFilesOrdered(tmpDir)
 		require.NoError(t, err)
 
 		assert.Equal(t, []string{"file3.txt", "file1.txt", "file2.txt"}, orderedFiles)
 	})
 
 	t.Run("returns error for non-existent directory", func(t *testing.T) {
-		_, err := fstools.ListFilesOrdered("/non/existent/directory")
+		_, err := fstools2.ListFilesOrdered("/non/existent/directory")
 		require.Error(t, err)
 	})
 
 	t.Run("does not include directories in the result", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fstools2.TemporaryDirectory()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -55,18 +55,18 @@ func TestListFilesOrdered(t *testing.T) {
 		err = os.WriteFile(tmpDir+"/file.txt", []byte("test content"), 0644)
 		require.NoError(t, err)
 
-		orderedFiles, err := fstools.ListFilesOrdered(tmpDir)
+		orderedFiles, err := fstools2.ListFilesOrdered(tmpDir)
 		require.NoError(t, err)
 
 		assert.Equal(t, []string{"file.txt"}, orderedFiles)
 	})
 
 	t.Run("returns empty slice for empty directory", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fstools2.TemporaryDirectory()
 		require.NoError(t, err)
 		defer cleanup()
 
-		orderedFiles, err := fstools.ListFilesOrdered(tmpDir)
+		orderedFiles, err := fstools2.ListFilesOrdered(tmpDir)
 		require.NoError(t, err)
 
 		assert.Empty(t, orderedFiles)

@@ -1,18 +1,18 @@
-package fstools_test
+package fsutil_test
 
 import (
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/matthiasharzer/service-kit/fstools"
+	"github.com/matthiasharzer/service-kit/util/fsutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestTemporaryFile(t *testing.T) {
 	t.Run("creates a temporary file", func(t *testing.T) {
-		tmpFile, cleanup, err := fstools.TemporaryFile()
+		tmpFile, cleanup, err := fsutil.TemporaryFile()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -20,7 +20,7 @@ func TestTemporaryFile(t *testing.T) {
 	})
 
 	t.Run("writes and reads data to/from the temporary file", func(t *testing.T) {
-		tmpFile, cleanup, err := fstools.TemporaryFile()
+		tmpFile, cleanup, err := fsutil.TemporaryFile()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -35,7 +35,7 @@ func TestTemporaryFile(t *testing.T) {
 	})
 
 	t.Run("cleans up the temporary file", func(t *testing.T) {
-		tmpFile, cleanup, err := fstools.TemporaryFile()
+		tmpFile, cleanup, err := fsutil.TemporaryFile()
 		require.NoError(t, err)
 
 		cleanup()
@@ -44,7 +44,7 @@ func TestTemporaryFile(t *testing.T) {
 	})
 
 	t.Run("creates a temporary file with a specific ending", func(t *testing.T) {
-		tmpFile, cleanup, err := fstools.TemporaryFile(fstools.WithFileEnding(".txt"))
+		tmpFile, cleanup, err := fsutil.TemporaryFile(fsutil.WithFileEnding(".txt"))
 		require.NoError(t, err)
 		defer cleanup()
 
