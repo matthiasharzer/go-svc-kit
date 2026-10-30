@@ -1,4 +1,4 @@
-package httptools_test
+package httputil_test
 
 import (
 	"compress/gzip"
@@ -7,16 +7,16 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/matthiasharzer/service-kit/httptools"
+	httptools2 "github.com/matthiasharzer/service-kit/util/httputil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGZIPMiddleware(t *testing.T) {
 	t.Run("serves gzip response if gzip is accepted", func(t *testing.T) {
-		handler := httptools.UseMiddleware(
-			[]httptools.Middleware{
-				httptools.GZIPMiddleware(),
+		handler := httptools2.UseMiddleware(
+			[]httptools2.Middleware{
+				httptools2.GZIPMiddleware(),
 			},
 			func(w http.ResponseWriter, r *http.Request) {
 				_, err := w.Write([]byte("hello world"))
@@ -43,9 +43,9 @@ func TestGZIPMiddleware(t *testing.T) {
 	})
 
 	t.Run("does not serve gzip if it is not accepted", func(t *testing.T) {
-		handler := httptools.UseMiddleware(
-			[]httptools.Middleware{
-				httptools.GZIPMiddleware(),
+		handler := httptools2.UseMiddleware(
+			[]httptools2.Middleware{
+				httptools2.GZIPMiddleware(),
 			},
 			func(w http.ResponseWriter, r *http.Request) {
 				_, err := w.Write([]byte("hello world"))

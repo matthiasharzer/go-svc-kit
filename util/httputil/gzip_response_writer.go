@@ -1,4 +1,4 @@
-package httptools
+package httputil
 
 import (
 	"compress/gzip"

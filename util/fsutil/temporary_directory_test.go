@@ -1,4 +1,4 @@
-package fstools_test
+package fsutil_test
 
 import (
 	"os"
@@ -6,14 +6,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/matthiasharzer/service-kit/fstools"
+	"github.com/matthiasharzer/service-kit/util/fsutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestTemporaryDirectory(t *testing.T) {
 	t.Run("returns a valid temporary directory path", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fsutil.TemporaryDirectory()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -21,7 +21,7 @@ func TestTemporaryDirectory(t *testing.T) {
 	})
 
 	t.Run("returns a writable temporary directory", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fsutil.TemporaryDirectory()
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -36,7 +36,7 @@ func TestTemporaryDirectory(t *testing.T) {
 	})
 
 	t.Run("cleanup removes the temporary directory", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory()
+		tmpDir, cleanup, err := fsutil.TemporaryDirectory()
 		require.NoError(t, err)
 
 		// Create a file in the temporary directory to ensure it's not empty
@@ -50,7 +50,7 @@ func TestTemporaryDirectory(t *testing.T) {
 	})
 
 	t.Run("created a directory based on a pattern", func(t *testing.T) {
-		tmpDir, cleanup, err := fstools.TemporaryDirectory(fstools.WithPrefix("prefix"))
+		tmpDir, cleanup, err := fsutil.TemporaryDirectory(fsutil.WithPrefix("prefix"))
 		require.NoError(t, err)
 		defer cleanup()
 
